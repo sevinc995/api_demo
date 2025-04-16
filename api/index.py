@@ -8,6 +8,7 @@ CORS(app, resources = {r"/api/news": {
     "origins": [],
     "methods": ["GET"]
 }})
+
 @app.route("/api/news", methods=["GET"])
 def get_news():
 
@@ -15,9 +16,10 @@ def get_news():
 
     news = {"id": 1, "title": "Demo"}
 
-    if api_key in None and len(request.args) > 0:
+    if api_key is None and len(request.args) > 0:
         return jsonify({"error": "Invalid query parameters"})
 
     if api_key and api_key != API_KEY:
         return jsonify({"error": "Invalid api key"})
+        
     return jsonify({"news": news})
